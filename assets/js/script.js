@@ -5,6 +5,7 @@ let timerEl = document.querySelector(".timer-count");
 let startButton = document.querySelector(".start-button");
 let correctCount = 0;
 let incorrectCount = 0;
+let highScoreCount = 1;
 let quizDone = false;
 let timer;
 let timerCount;
@@ -51,7 +52,6 @@ function correctAnswer() {
 
 function wrongAnswer() {
   incorrectCount++;
-  setWrongAnswer()
 }
 
 function startTimer() {
@@ -72,6 +72,8 @@ function startTimer() {
 }
 
 function showQuestion() {
+    console.log(questionNumber);
+    console.log(questionList[questionNumber].q);
     questionSpace.textContent = questionList[questionNumber].q;
 
     let unorderedList = document.querySelector(".choices");
@@ -89,8 +91,7 @@ function showQuestion() {
 }
 
 function userChoice(event) {
-
-    if(questionNumber === questionList.length){
+    if(questionNumber === questionList.length-1){
         quizDone = true;
         quizEnd();
         return;
@@ -116,11 +117,6 @@ function userChoice(event) {
 function setCorrectAnswers() {
   // TODO: set win count to local storage
   localStorage.setItem("correctTotal",correctCount);
-}
-
-function setWrongAnswer() {
-  // TODO: set lose count to local storage
-  localStorage.setItem("incorrectTotal",incorrectCount);
 }
 
 function quizEnd() {
@@ -149,10 +145,8 @@ function quizEnd() {
     let highScoreSubmit = document.createElement("button");
     highScoreForm.appendChild(highScoreSubmit);
     highScoreSubmit.classList.add('submit-button');
+    highScoreSubmit.setAttribute('type','button');
     highScoreSubmit.textContent = "Submit";
-
-    let submitButtons = document.querySelector(".submit-button");
-    submitButtons.addEventListener('submit',setHighScores);
 
 }
 
@@ -169,3 +163,11 @@ function getHighScores() {
 startButton.addEventListener("click", startGame);
 choiceButtons.addEventListener('click',userChoice);
 
+document.addEventListener('click',function(event) {
+    if (event.target && event.target.matches(".submit-button")){
+        let userInitials = document.querySelector('input').value
+        let storedScores = localStorage.getItem("correctTotal");
+        let newHighScore = `${highScoreCount}. ${userInitials} - ${storedScores}`;
+        questionSpace.textContent = newHighScore;
+    }
+});
