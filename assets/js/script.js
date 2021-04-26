@@ -1,6 +1,5 @@
 let questionSpace = document.querySelector(".question");
 let choiceButtons = document.querySelector(".choices");
-//let submitButtons  = document.querySelector(".submit-button");
 let timerEl = document.querySelector(".timer-count");
 let startButton = document.querySelector(".start-button");
 let correctCount = 0;
@@ -12,7 +11,7 @@ let timerCount;
 let questionNumber;
 
 let question1 = {
-    q: "What is the starting idex number for an array in javascript?",
+    q: "What is the starting index number for an array in javascript?",
     qChoices:['1. 1','2. 5','3. 0','4. 10'],
     qAnswer: 2,
 }
@@ -63,7 +62,6 @@ function startTimer() {
                 clearInterval(timer);
             }
         }
-    // TODO: if time runs out, clear the timer and call the loseGame function
     if (timerCount === 0) {
         clearInterval(timer);
         quizEnd();
@@ -115,7 +113,6 @@ function userChoice(event) {
 }
 
 function setCorrectAnswers() {
-  // TODO: set win count to local storage
   localStorage.setItem("correctTotal",correctCount);
 }
 
@@ -148,16 +145,6 @@ function quizEnd() {
     highScoreSubmit.setAttribute('type','button');
     highScoreSubmit.textContent = "Submit";
 
-}
-
-function setHighScores(event) {
-    
-    let newHighScore = event.target.innerHTML;
-    questionSpace.textContent = newHighScore;
-}
-
-function getHighScores() {
-   
 }
 
 startButton.addEventListener("click", startGame);
