@@ -1,0 +1,123 @@
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        justify-content: flex-start;
+        background-color:rgb(213, 203, 214);
+    }
+
+    button {
+        background: radial-gradient(circle,#a2abb4 0%, #5f7992 100%);
+        border-radius: 8px;
+        color:black;
+        cursor: pointer;
+        font-size: 2em;
+        letter-spacing: 0.21px;
+        line-height: 16px;
+        max-width: 255px;
+        padding: 20px 52px;
+        text-align: center;
+        transition-duration: 0.15s;
+        transition-property: background-color;
+        transition-timing-function: linear;
+        margin-top: 0.6em;
+    }
+
+    header {
+        padding: 40px;
+        text-align: center;
+        background: rgb(213, 203, 214);
+        /* color: #fff; */
+        border-bottom:30px #879274;
+    }
+
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    section {
+        flex: 0 auto;
+        padding: 8px;
+        margin-top: 50px;
+        background-color: white;
+        border-radius: 8px;
+    }
+
+    ul {
+        display:flex;
+        flex-direction:column;
+    }
+
+    .choice-button {
+        font-size: 12px;
+        height: 24px;
+        line-height: 8px;
+        padding: 3px 8px;
+    }
+
+    .submit-button {
+        font-size: 12px;
+        height: 24px;
+        line-height: 8px;
+        padding: 3px 8px;
+    }
+
+    .card-dim {
+        width: 55vw;
+        height: 400px;
+    }
+
+    .card {
+        background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(186, 214, 180, 0.604) 100%);
+        border: 1px solid #eceff1;
+        border-radius: 8px;
+        box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
+        rgba(60, 64, 67, 0.15) 0 2px 4px 3px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .font-header {
+        font-size: 2.5em;
+        text-align:center;
+    }
+
+    .timer {
+        padding: 10px;
+        background: #5f7992;
+        color: #fff;
+        text-align: center;
+    }
+
+    .timer-text {
+        padding: 25px;
+    }
+
+    @media screen and (max-width: 1183px) {
+        main {
+        flex-direction: column;
+        }
+
+        section {
+        background-color: white;
+        margin: 20px auto;
+        width: 92vw;
+        }
+    }
+    @media screen and (max-width: 504px) {
+        .font-header {
+        font-size: 2em;
+        }
+
+        .timer {
+        height: 200px;
+        }
+    }
