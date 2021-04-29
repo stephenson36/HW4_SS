@@ -1,5 +1,6 @@
 let questionSpace = document.querySelector(".question");
 let choiceButtons = document.querySelector(".choices");
+let rightWrong = document.querySelector(".right-wrong");
 let timerEl = document.querySelector(".timer-count");
 let startButton = document.querySelector(".start-button");
 let highScoreStorage = [];
@@ -41,16 +42,20 @@ function startGame() {
     quizDone = false;
     timerCount = 75;
     questionNumber = 0;
+    correctCount = 0;
     showQuestion();
     startTimer();
 }
 
 function correctAnswer() {
     correctCount++;
+    rightWrong.textContent = "Correct";
 }
 
 function wrongAnswer() {
     incorrectCount++;
+    rightWrong.textContent = "Incorrect";
+    timerCount = timerCount - 10;
 }
 
 function startTimer() {
@@ -97,6 +102,7 @@ function userChoice(event) {
             }
         }
         quizDone = true;
+        rightWrong.textContent = "";
         quizEnd();
         return;
     } else{
