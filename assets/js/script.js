@@ -2,6 +2,7 @@ let questionSpace = document.querySelector(".question");
 let choiceButtons = document.querySelector(".choices");
 let timerEl = document.querySelector(".timer-count");
 let startButton = document.querySelector(".start-button");
+let highScoreStorage = [];
 let correctCount = 0;
 let incorrectCount = 0;
 let highScoreCount = 1;
@@ -45,12 +46,11 @@ function startGame() {
 }
 
 function correctAnswer() {
-  correctCount++;
-  setCorrectAnswers();
+    correctCount++;
 }
 
 function wrongAnswer() {
-  incorrectCount++;
+    incorrectCount++;
 }
 
 function startTimer() {
@@ -70,8 +70,6 @@ function startTimer() {
 }
 
 function showQuestion() {
-    console.log(questionNumber);
-    console.log(questionList[questionNumber].q);
     questionSpace.textContent = questionList[questionNumber].q;
 
     let unorderedList = document.querySelector(".choices");
@@ -89,18 +87,24 @@ function showQuestion() {
 }
 
 function userChoice(event) {
+    let userClick = event.target.innerHTML;
     if(questionNumber === questionList.length-1){
-        quizDone = true;
-        quizEnd();
-        return;
-    } else{
-        
-        let userClick = event.target.innerHTML;
         for (let i = 0; i<questionList[questionNumber].qChoices.length;i++) {
             if (questionList[questionNumber].qChoices[i] === userClick){
                 if(questionList[questionNumber].qAnswer === i){
                     correctAnswer();
-                    questionNumber++; 
+                }
+            }
+        }
+        quizDone = true;
+        quizEnd();
+        return;
+    } else{
+        for (let i = 0; i<questionList[questionNumber].qChoices.length;i++) {
+            if (questionList[questionNumber].qChoices[i] === userClick){
+                if(questionList[questionNumber].qAnswer === i){
+                    correctAnswer();
+                    questionNumber++;
                     showQuestion();
                     return;
                 }
@@ -112,8 +116,12 @@ function userChoice(event) {
     }
 }
 
-function setCorrectAnswers() {
-  localStorage.setItem("correctTotal",correctCount);
+function setHighScores(storeCount,storeInitials,storeScore) {
+    let newHighScore = `${storeCount}. ${storeInitials} - ${storeScore}`;
+    highScoreStorage.push(newHighScore);
+    localStorage.setItem("highScores",highScoreStorage);
+    console.log(highScoreStorage);
+
 }
 
 function quizEnd() {
@@ -152,9 +160,10 @@ choiceButtons.addEventListener('click',userChoice);
 
 document.addEventListener('click',function(event) {
     if (event.target && event.target.matches(".submit-button")){
-        let userInitials = document.querySelector('input').value
-        let storedScores = localStorage.getItem("correctTotal");
-        let newHighScore = `${highScoreCount}. ${userInitials} - ${storedScores}`;
-        questionSpace.textContent = newHighScore;
+        let userInitials = document.querySelector('input').value;
+        let storedScores = localStorage.getItem("correctTotal")*5;
+        setHighScores(highScoreCount,userInitials,storedScores);
+        highScoreCount++;
+        questionSpace.textContent = localStorage.getItem("highScores");
     }
 });
